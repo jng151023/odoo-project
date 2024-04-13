@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  odoo:
+    container_name: odoo
+    image: odoo:17
+    restart: always
+    ports:
+      - 80:8069
+    env_file:
+      - ./env-files/odoo.env
+    volumes:
+      - ./data/odoo/config:/etc/odoo
+      - ./data/odoo/data:/var/lib/odoo
+      - ./data/odoo/addons:/mnt/extra-addons
+    depends_on:
+      - odoo-database
+    networks:
+      - odoo-network
+  odoo-database:
+    container_name: odoo-database
+    image: postgres:16.2
+    restart: always
+    env_file:
+      - ./env-files/postgres.env
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - odoo-network
+
+networks:
+  odoo-network:
