@@ -3,7 +3,9 @@ version: '3.8'
 services:
   odoo:
     container_name: odoo
-    image: odoo:17
+    build:
+      context: ./dockerfiles
+      dockerfile: odoo.dockerfile
     restart: always
     ports:
       - 80:8069
