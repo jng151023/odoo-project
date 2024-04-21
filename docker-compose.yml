@@ -30,3 +30,4 @@ services:
 
 networks:
   odoo-network:
+  testing-net:
