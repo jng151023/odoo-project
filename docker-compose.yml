@@ -3,10 +3,12 @@ version: '3.8'
 services:
   odoo:
     container_name: odoo
-    image: odoo:17
+    build:
+      context: ./dockerfiles
+      dockerfile: odoo.dockerfile
     restart: always
     ports:
-      - 80:8069
+      - 8888:8069
     env_file:
       - ./env-files/odoo.env
     volumes:
@@ -21,6 +23,8 @@ services:
     container_name: odoo-database
     image: postgres:16.2
     restart: always
+    ports:
+      - 5555:5432
     env_file:
       - ./env-files/postgres.env
     volumes:
