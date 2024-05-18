@@ -1,5 +1,9 @@
 .DS_Store
 
-data/
+data
 
 data.baks
+
+odoo.devdb.env
+
+odoo.devdb.conf
