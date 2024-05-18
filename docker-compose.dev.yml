@@ -11,7 +11,7 @@ services:
     volumes:
       - ./environment/odoo/odoo.devdb.conf:/etc/odoo/odoo.conf
       - ./environment/data-dev/odoo/config:/etc/odoo
-      - ./environment/data-dev/odoo/data:/var/lib/odoo
+      # - ./environment/data-dev/odoo/data:/var/lib/odoo
       - ./addons:/var/lib/odoo/addons/15.0
     command: odoo -i base
     networks:
