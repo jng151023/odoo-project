@@ -11,7 +11,7 @@ services:
     volumes:
       - ./environment/odoo/odoo.localdb.conf:/etc/odoo/odoo.conf
       - ./environment/data/odoo/config:/etc/odoo
-      - ./environment/data/odoo/data:/var/lib/odoo
+      # - ./environment/data/odoo/data:/var/lib/odoo
       - ./addons:/var/lib/odoo/addons/15.0
     command: odoo -i base
     depends_on:
