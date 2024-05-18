@@ -1,36 +1,35 @@
 version: '3.8'
 
 services:
-  odoo:
-    container_name: odoo
-    build:
-      context: ./dockerfiles
-      dockerfile: odoo.dockerfile
+  odoo-local:
+    image: sonnvq/odoo-dev:15.1
     restart: always
     ports:
       - 8888:8069
     env_file:
-      - ./env-files/odoo.env
+      - ./environment/env-files/odoo.localdb.env
     volumes:
-      - ./data/odoo/config:/etc/odoo
-      - ./data/odoo/data:/var/lib/odoo
-      - ./data/odoo/addons:/mnt/extra-addons
+      - ./environment/odoo/odoo.localdb.conf:/etc/odoo/odoo.conf
+      - ./environment/data/odoo/config:/etc/odoo
+      # - ./environment/data/odoo/data:/var/lib/odoo
+      - ./addons:/var/lib/odoo/addons/15.0
+    command: odoo -i base
     depends_on:
       - odoo-database
     networks:
-      - odoo-network
+      - odoo-network-local
+
   odoo-database:
-    container_name: odoo-database
     image: postgres:16.2
     restart: always
     ports:
       - 5555:5432
     env_file:
-      - ./env-files/postgres.env
+      - ./environment/env-files/postgres.env
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ./environment/data/postgres:/var/lib/postgresql/data
     networks:
-      - odoo-network
+      - odoo-network-local
 
 networks:
-  odoo-network:
+  odoo-network-local:

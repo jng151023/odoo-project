@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  odoo:
+    image: sonnvq/odoo-dev:15.1
+    restart: always
+    ports:
+      - 8889:8069
+    env_file:
+      - ./environment/env-files/odoo.devdb.env
+    volumes:
+      - ./environment/odoo/odoo.devdb.conf:/etc/odoo/odoo.conf
+      - ./environment/data-dev/odoo/config:/etc/odoo
+      # - ./environment/data-dev/odoo/data:/var/lib/odoo
+      - ./addons:/var/lib/odoo/addons/15.0
+    command: odoo -i base
+    networks:
+      - odoo-network
+
+networks:
+  odoo-network:
