@@ -11,6 +11,16 @@ USER root
 
 RUN groupadd -g 1000 odoo-data && usermod -aG odoo-data odoo
 
-USER odoo
+# RUN chown -R odoo:odoo-data /usr/lib/python3/dist-packages/odoo
+
+RUN cp -r /usr/lib/python3/dist-packages/odoo/addons /usr/lib/python3/dist-packages/odoo/addons.tmp
+
+COPY ./entrypoints/odoo.entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# USER odoo
+
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
 CMD [ "odoo" ]
