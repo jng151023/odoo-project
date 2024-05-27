@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  odoo-local:
+    image: arm64v8/odoo:17
+    restart: always
+    ports:
+      - 8888:8069
+    env_file:
+      - ./environment/env-files/odoo.localdb.env
+    volumes:
+      - ./environment/odoo/odoo.localdb.conf:/etc/odoo/odoo.conf
+      - ./environment/data/odoo/config:/etc/odoo
+      # - ./environment/data/odoo/data:/var/lib/odoo
+      - ./addons:/var/lib/odoo/addons/17.0
+    command: odoo -i base,l10n_vn -d odoo-local --dev=all
+    depends_on:
+      - odoo-database
+    networks:
+      - odoo-network-local
+    platform: linux/arm64/v8
+
+  odoo-database:
+    image: arm64v8/postgres:16.2
+    restart: always
+    ports:
+      - 5555:5432
+    env_file:
+      - ./environment/env-files/postgres.env
+    volumes:
+      - ./environment/data/postgres:/var/lib/postgresql/data
+    networks:
+      - odoo-network-local
+    platform: linux/arm64/v8
+
+networks:
+  odoo-network-local:
