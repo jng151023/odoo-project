@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   odoo-local:
-    image: sonnvq/odoo-dev:15.1
+    image: sonnvq/odoo-dev:17.1
     restart: always
     ports:
       - 8888:8069
@@ -12,7 +12,7 @@ services:
       - ./environment/odoo/odoo.localdb.conf:/etc/odoo/odoo.conf
       - ./environment/data/odoo/config:/etc/odoo
       # - ./environment/data/odoo/data:/var/lib/odoo
-      - ./addons:/var/lib/odoo/addons/15.0
+      - ./addons:/var/lib/odoo/addons/17.0
     command: odoo -i base,l10n_vn -d odoo-local --dev=all
     depends_on:
       - odoo-database

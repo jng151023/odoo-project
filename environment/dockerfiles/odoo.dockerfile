@@ -1,4 +1,4 @@
-FROM odoo:15
+FROM odoo:17
 
 # Fix: permission denied to /var/lib/odoo inside container when running on linux host
 # Cause: in the host, folder data has owner id 1000 and group id 1000(by default) 
