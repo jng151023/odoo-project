@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_employee_view_form_page" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit.resume</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_skills.hr_employee_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='public']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_pharmacy_quotations" model="ir.actions.act_window">
+        <field name="name">Quotations</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="sale.view_quotation_tree"/>
+        <field name="view_mode">tree,form,calendar,graph,kanban,pivot</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+    </record>
+
+    <record id="action_pharmacy_orders" model="ir.actions.act_window">
+        <field name="name">Sales Orders</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form,calendar,graph,kanban,pivot</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="domain">[('state','not in',('draft','sent','cancel'))]</field>
+    </record>
+
+    <record id="action_invoice_pharmacy_sales" model="ir.actions.act_window">
+        <field name="name">Invoices</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="account.view_move_tree"/>
+        <field name="domain">[
+            ('state', 'in', ['draft','posted']),
+            ('move_type', 'in', ['out_invoice', 'out_refund'])]
+        </field>
+    </record>
+
+    <record id="res_partner_action_pharmacy_customer" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company':
+            True, 'default_customer_rank': 1}
+        </field>
+    </record>
+
+
+    <menuitem id="menu_customers" name="Customers" sequence="0"
+              parent="pharmacy_managment_jkc.main_menu_pharmacy"/>
+    <menuitem id="menu_quataions" name="Quotations" sequence="0"
+              parent="pharmacy_managment_jkc.menu_customers"
+              action="action_pharmacy_quotations"/>
+    <menuitem id="menu_pharmacy_sale_order" name="Sale Orders" sequence="1"
+              parent="pharmacy_managment_jkc.menu_customers"
+              action="action_pharmacy_orders"/>
+    <menuitem id="menu_pharmacy_invoices" name="Customer Invoice" sequence="2"
+              parent="pharmacy_managment_jkc.menu_customers"
+              action="action_invoice_pharmacy_sales"/>
+    <menuitem id="menu_pharmacy_customers" name="Customers" sequence="3"
+              parent="pharmacy_managment_jkc.menu_customers"
+              action="res_partner_action_pharmacy_customer"/>
+
+</odoo>

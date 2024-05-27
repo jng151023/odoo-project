@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="open_view_pharmacy_employee_list" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">kanban,tree,form,activity,graph,pivot</field>
+        <field name="domain">[]</field>
+        <field name="context">{'chat_icon': True}</field>
+        <field name="view_id" eval="False"/>
+        <field name="search_view_id" ref="hr.view_employee_filter"/>
+    </record>
+    <record id="action_hr_pharmacy_contract" model="ir.actions.act_window">
+        <field name="name">Contracts</field>
+        <field name="res_model">hr.contract</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="domain">[('employee_id', '!=', False)]</field>
+        <field name="context">{'search_default_group_by_state': 1}</field>
+        <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+    </record>
+
+
+    <menuitem id="menu_employees" name="Employees" sequence="1"
+              parent="pharmacy_managment_jkc.main_menu_pharmacy"/>
+    <menuitem id="menu_employee" name="Employees" sequence="0"
+              parent="pharmacy_managment_jkc.menu_employees"
+              action="open_view_pharmacy_employee_list"/>
+    <menuitem id="menu_contracts" name="Contracts" sequence="1"
+              parent="pharmacy_managment_jkc.menu_employees"
+              action="action_hr_pharmacy_contract"/>
+    <menuitem id="menu_payslip" name="Employee Payslips" sequence="2"
+              parent="pharmacy_managment_jkc.menu_employees"
+              action="hr_payroll.action_view_hr_payslip_form"/>
+
+
+</odoo>

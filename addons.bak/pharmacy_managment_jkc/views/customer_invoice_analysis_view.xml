@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_pharmacy_report" name="Report" sequence="4"
+              parent="pharmacy_managment_jkc.main_menu_pharmacy"
+              groups="group_pharmacy_manager"/>
+    <menuitem id="account.menu_action_account_invoice_report_all" name="Customer Invoice" sequence="0"
+              parent="pharmacy_managment_jkc.menu_pharmacy_report"
+              action="account.action_account_invoice_report_all"
+              groups="group_pharmacy_manager"/>
+    <menuitem id="menu_expiry_report_wizard" name="Medicine Expiry Report" sequence="1"
+              parent="pharmacy_managment_jkc.menu_pharmacy_report"
+              action="expiry_report_wizard_action"
+              groups="group_pharmacy_manager"/>
+
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_purchase" name="Purchase" sequence="3"
+              parent="pharmacy_managment_jkc.main_menu_pharmacy"/>
+    <menuitem id="menu_rfq" name="Requests for Quotation" sequence="0"
+              parent="pharmacy_managment_jkc.menu_purchase"
+              action="purchase.purchase_rfq"/>
+    <menuitem id="menu_purchase_orderq" name="Purchase Orders" sequence="1"
+              parent="pharmacy_managment_jkc.menu_purchase"
+              action="purchase.purchase_form_action"/>
+    <menuitem id="purchase.menu_procurement_management_supplier_name" name="Vendors" sequence="2"
+              parent="pharmacy_managment_jkc.menu_purchase"
+              action="account.res_partner_action_supplier"/>
+    <menuitem id="account.menu_action_account_invoice_report_all" name="Vendors" sequence="3"
+              parent="pharmacy_managment_jkc.menu_purchase"/>
+
+</odoo>

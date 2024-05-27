@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form view for PharmacyMedicine -->
+    <record id="view_pharmacy_medicine_form" model="ir.ui.view">
+        <field name="name">pharmacy.medicine.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='detailed_type']" position="after">
+                <field name="medicine_type_id"/>
+                <field name="category_id"/>
+                <field name="medicine_company_id"/>
+                <field name="expiry_date"/>
+            </xpath>
+            <xpath expr="//page[@name='variants']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_tag_ids']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pharmacy_medicine_product_form" model="ir.ui.view">
+        <field name="name">pharmacy.medicine.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='detailed_type']" position="after">
+                <field name="medicine_type_id"/>
+                <field name="category_id"/>
+                <field name="medicine_company_id"/>
+                <field name="expiry_date"/>
+            </xpath>
+<!--            <xpath expr="//page[@name='variants']" position="attributes">-->
+<!--                <attribute name="invisible">True</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_tag_ids']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='additional_product_tag_ids']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+    <record id="view_pharmacy_medicine_page" model="ir.ui.view">
+        <field name="name">pharmacy.medicine.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='invoicing']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pharmacy_medicine_page" model="ir.ui.view">
+        <field name="name">pharmacy.medicine.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_policy']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_tooltip']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(product.product_tag_action)d']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+    <menuitem id="menu_medicines" name="Medicines" sequence="2"
+              parent="pharmacy_managment_jkc.main_menu_pharmacy"/>
+    <menuitem id="menu_medicine" name="Medicines" sequence="0"
+              parent="pharmacy_managment_jkc.menu_medicines"
+              action="sale.product_template_action"/>
+    <!--              action="product.product_normal_action_sell"/>-->
+
+</odoo>
