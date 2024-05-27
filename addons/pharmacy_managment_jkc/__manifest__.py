@@ -11,7 +11,8 @@
         Pharmacy management
     """,
 
-    'author': "Jamsheena KC",
+    'author': "Group 5",
+    'sequence': '0',
 
     'category': 'Medical',
     'version': '17.0.1.0.0',
@@ -39,7 +40,7 @@
     'demo': [
     ],
     'images': ['static/description/banner.png'],
-    'application': False,
+    'application': True,
     'auto_install': False,
     'license': 'LGPL-3'
 }
