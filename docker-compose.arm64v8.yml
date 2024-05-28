@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   odoo-local:
-    image: sonnvq/odoo-dev:17.1
+    image: arm64v8/odoo:17
     restart: always
     ports:
       - 8888:8069
@@ -18,9 +18,10 @@ services:
       - odoo-database
     networks:
       - odoo-network-local
+    platform: linux/arm64/v8
 
   odoo-database:
-    image: postgres:16.2
+    image: arm64v8/postgres:16.2
     restart: always
     ports:
       - 5555:5432
@@ -30,6 +31,7 @@ services:
       - ./environment/data/postgres:/var/lib/postgresql/data
     networks:
       - odoo-network-local
+    platform: linux/arm64/v8
 
 networks:
   odoo-network-local:
