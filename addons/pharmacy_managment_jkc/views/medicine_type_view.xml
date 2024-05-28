@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+
+        <record id="medicine_type_search_view" model="ir.ui.view">
+            <field name="name">medicine.type.search</field>
+            <field name="model">medicine.type</field>
+            <field name="arch" type="xml">
+                <search string="Patient Pharmacy">
+                    <field name="name" filter_domain="[('name', 'ilike', self)]" string="Medicine Type"/>
+                </search>
+            </field>
+        </record>
+
+        <!--     medicine type tree view-->
+
+        <record id="view_medicine_type_tree" model="ir.ui.view">
+            <field name="name">his.ip.pharmacy.tree</field>
+            <field name="model">medicine.type</field>
+            <field name="arch" type="xml">
+                <tree string="Medicine Type">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_medicine_type_form" model="ir.ui.view">
+            <field name="name">medicine.type.form</field>
+            <field name="model">medicine.type</field>
+            <field name="arch" type="xml">
+                <form string="Medicine Type">
+                    <sheet>
+                        <group>
+                            <field name="name" class="oe_inline"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_medicine_type" model="ir.actions.act_window">
+            <field name="name">Medicine Types</field>
+            <field name="res_model">medicine.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="main_menu_pharmacy" sequence="1" name="Pharmacy"
+                  web_icon="pharmacy_managment_jkc,static/src/img/pharmacy_logo.png"/>
+        <menuitem id="menu_configuration" name="configurations" groups="group_pharmacy_manager" sequence="5"
+                  parent="main_menu_pharmacy"/>
+        <menuitem id="menu_medicine_type" name="Medicine Types" parent="pharmacy_managment_jkc.menu_configuration" sequence="0"
+                  action="action_medicine_type"/>
+
+
+    </data>
+</odoo>
