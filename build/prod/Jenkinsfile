@@ -93,7 +93,8 @@ pipeline {
                     ]) {
                         sh "chmod 400 $BASTION_KEY && chmod 400 $REMOTE_KEY"
                         sh "ssh -i $REMOTE_KEY -o ProxyCommand='ssh -i $BASTION_KEY -o StrictHostKeyChecking=no -W %h:%p $BASTION_USER@$BASTION_HOST' -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST \
-                            'LOCAL_REGISTRY_HOST=${LOCAL_REGISTRY_HOST} DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME} TAG=${TAG} \
+                            'docker login -u $USERNAME -p $PASSWORD reg.lc-pharma.store && \
+                            LOCAL_REGISTRY_HOST=${LOCAL_REGISTRY_HOST} DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME} TAG=${TAG} \
                             docker stack deploy --with-registry-auth --compose-file docker-compose.odoo-prod.yml ${STACK_NAME}'"
                     }
                 }
