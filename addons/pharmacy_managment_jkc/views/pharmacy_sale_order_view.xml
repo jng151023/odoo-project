@@ -58,7 +58,7 @@
     <menuitem id="menu_pharmacy_sale_order" name="Sale Orders" sequence="1"
               parent="pharmacy_managment_jkc.menu_customers"
               action="action_pharmacy_orders"/>
-    <menuitem id="menu_pharmacy_invoices" name="Customer Invoice" sequence="2"
+    <menuitem id="menu_pharmacy_invoices_1" name="Customer Invoice" sequence="2"
               parent="pharmacy_managment_jkc.menu_customers"
               action="action_invoice_pharmacy_sales"/>
     <menuitem id="menu_pharmacy_customers" name="Customers" sequence="3"

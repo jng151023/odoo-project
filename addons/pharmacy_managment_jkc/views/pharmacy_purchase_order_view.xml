@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="action_invoice_pharmacy_purchase" model="ir.actions.act_window">
+        <field name="name">Invoices</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="account.view_move_tree"/>
+        <field name="domain">[
+            ('state', 'in', ['draft','posted']),
+            ('move_type', 'in', ['out_invoice', 'out_refund'])]
+        </field>
+    </record>
 
     <menuitem id="menu_purchase" name="Purchase" sequence="3"
               parent="pharmacy_managment_jkc.main_menu_pharmacy"/>
@@ -9,10 +19,13 @@
     <menuitem id="menu_purchase_orderq" name="Purchase Orders" sequence="1"
               parent="pharmacy_managment_jkc.menu_purchase"
               action="purchase.purchase_form_action"/>
-    <menuitem id="purchase.menu_procurement_management_supplier_name" name="Vendors" sequence="2"
+    <menuitem id="menu_pharmacy_invoices_2" name="Vendor Invoice" sequence="2"
+              parent="pharmacy_managment_jkc.menu_purchase"
+              action="action_invoice_pharmacy_purchase"/>
+    <menuitem id="purchase.menu_procurement_management_supplier_name" name="Vendors" sequence="3"
               parent="pharmacy_managment_jkc.menu_purchase"
               action="account.res_partner_action_supplier"/>
-    <menuitem id="account.menu_action_account_invoice_report_all" name="Vendors" sequence="3"
+    <menuitem id="account.menu_action_account_invoice_report_all" name="Vendors" sequence="4"
               parent="pharmacy_managment_jkc.menu_purchase"/>
 
 </odoo>

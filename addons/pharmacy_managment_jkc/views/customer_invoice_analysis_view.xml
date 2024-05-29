@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="menu_pharmacy_report" name="Report" sequence="4"
+    <menuitem id="menu_pharmacy_report" name="Report" sequence="5"
               parent="pharmacy_managment_jkc.main_menu_pharmacy"
               groups="group_pharmacy_manager"/>
-    <menuitem id="account.menu_action_account_invoice_report_all" name="Customer Invoice" sequence="0"
+    <menuitem id="account.menu_action_account_invoice_report_all" name="Invoice Analysis" sequence="0"
               parent="pharmacy_managment_jkc.menu_pharmacy_report"
               action="account.action_account_invoice_report_all"
               groups="group_pharmacy_manager"/>
