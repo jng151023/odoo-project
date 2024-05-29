@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  odoo-local:
+    image: ${LOCAL_REGISTRY_HOST}/${DOCKER_IMAGE_NAME}:${TAG}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role != manager
+          - node.labels.config == false
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2048M
+        reservations:
+          cpus: '1'
+          memory: 1024M
+      labels:
+        # Enable traefik routing
+        - "traefik.enable=true"
+        # Redirect http to https
+        - "traefik.http.middlewares.odoo-redirect-to-https.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.odoo-redirect-to-https.redirectscheme.permanent=true"
+        - "traefik.http.routers.odoo-http.rule=Host(`lc-pharma.store`)"
+        - "traefik.http.routers.odoo-http.entrypoints=web"
+        - "traefik.http.routers.odoo-http.middlewares=odoo-redirect-to-https"
+        # Routers and services
+        - "traefik.http.routers.odoo-https.rule=Host(`lc-pharma.store`)"
+        - "traefik.http.routers.odoo-https.entrypoints=websecure"
+        - "traefik.http.routers.odoo-https.service=odoo"
+        - "traefik.http.routers.odoo-https.tls=true"
+        - "traefik.http.routers.odoo-https.tls.certresolver=myresolver"
+        - "traefik.http.services.odoo.loadbalancer.server.port=8069"
+        # Set traefik network to fix gateway timeout
+        - "traefik.docker.network=traefik_public"
+      update_config:
+        parallelism: 1
+        delay: 5s
+    command: odoo -i base,l10n_vn -d odoo-local --dev=all --without-demo=all
+    networks:
+      - odoo-network
+      - traefik_public
+
+networks:
+  traefik_public:
+    external:
+      name: traefik_public
+  odoo-network:
+    driver: overlay

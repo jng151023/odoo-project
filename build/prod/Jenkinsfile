@@ -1,0 +1,128 @@
+pipeline {
+    agent {
+        label "agent1"
+    }
+    
+    environment {
+        DOCKER_IMAGE_NAME = 'lc-pharma-prod'
+        DOCKERFILE_PATH = './build/prod/Dockerfile'
+        TAG = "${env.BUILD_NUMBER}"
+        STACK_NAME = 'lc-pharma-prod'
+        BASTION_HOST = credentials('bastion_ip')
+        BASTION_USER = 'ubuntu'
+        REMOTE_HOST = credentials('manager1a_ip')
+        REMOTE_USER = 'ubuntu'
+        BASTION_CREDENTIALS = 'SSH-Public'
+        REMOTE_CREDENTIALS = 'SSH-Private'
+        LOCAL_REGISTRY_HOST = 'reg.lc-pharma.store'
+        SONARQUBE_TOKEN = credentials('Sonarqube-Prod-Token')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'prod',
+                    // credentialsId: 'SonNVQ-Github',
+                    url: 'https://github.com/jng151023/odoo-project'
+            }
+        }
+
+        stage('SonarQube analysis') {
+            steps {
+                script {
+                    scannerHome = tool 'sonarqube'
+                }
+                withSonarQubeEnv('sonarqube') {
+                    sh "cd $WORKSPACE/addons && ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=odoo-prod \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=https://sonarqube.lc-pharma.store \
+                        -Dsonar.token=${SONARQUBE_TOKEN}"
+                }
+                timeout(time: 60, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    withCredentials([file(credentialsId: "odoo.prod.conf", variable: 'CONFIG_FILE')]) {
+                        sh 'cp $CONFIG_FILE $WORKSPACE/build/prod/odoo.prod.conf'
+                    }
+                    echo "docker build -t ${LOCAL_REGISTRY_HOST}/${DOCKER_IMAGE_NAME}:${TAG} -f ${DOCKERFILE_PATH} ."
+                    sh "cd $WORKSPACE && docker build -t ${LOCAL_REGISTRY_HOST}/${DOCKER_IMAGE_NAME}:${TAG} -f ${DOCKERFILE_PATH} ."
+                }
+            }
+        }
+        
+        stage('Push Docker Image to Local Registry') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker_admin_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh "docker login -u $USERNAME -p $PASSWORD reg.lc-pharma.store"
+                    }
+                    sh "docker push ${LOCAL_REGISTRY_HOST}/${DOCKER_IMAGE_NAME}:${TAG}"
+                    //sh "docker rmi ${LOCAL_REGISTRY_HOST}/${DOCKER_IMAGE_NAME}:${TAG}"
+                }
+            }
+        }
+        
+        stage('Copy docker-compose.yml to Remote Server') {
+            steps {
+                script {
+                    withCredentials([
+                        sshUserPrivateKey(credentialsId: BASTION_CREDENTIALS, keyFileVariable: 'BASTION_KEY'),
+                        sshUserPrivateKey(credentialsId: REMOTE_CREDENTIALS, keyFileVariable: 'REMOTE_KEY')
+                        sh "chmod 400 $BASTION_KEY && chmod 400 $REMOTE_KEY"
+                        sh "export SSH_PROXY_COMMAND='ssh -i $BASTION_KEY -o StrictHostKeyChecking=no -W %h:%p $BASTION_USER@$BASTION_HOST'"
+                        sh "scp -i $REMOTE_KEY -o ProxyCommand='$SSH_PROXY_COMMAND' -o StrictHostKeyChecking=no \
+                            $WORKSPACE/build/prod/docker-compose.yml $REMOTE_USER@$REMOTE_HOST:~/docker-compose.odoo-prod.yml"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy stack') {
+            steps {
+                script {
+                    withCredentials([
+                        sshUserPrivateKey(credentialsId: BASTION_CREDENTIALS, keyFileVariable: 'BASTION_KEY'),
+                        sshUserPrivateKey(credentialsId: REMOTE_CREDENTIALS, keyFileVariable: 'REMOTE_KEY')
+                        sh "chmod 400 $BASTION_KEY && chmod 400 $REMOTE_KEY"
+                        sh "export SSH_PROXY_COMMAND='ssh -i $BASTION_KEY -o StrictHostKeyChecking=no -W %h:%p $BASTION_USER@$BASTION_HOST'"
+                        sh "ssh -i $REMOTE_KEY -o ProxyCommand='$SSH_PROXY_COMMAND' -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST \
+                            'LOCAL_REGISTRY_HOST=${LOCAL_REGISTRY_HOST} DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME} TAG=${TAG} \
+                            docker stack deploy --with-registry-auth --compose-file docker-compose.odoo-prod.yml ${STACK_NAME}'"
+                    }
+                }
+            }
+        }
+
+        stage('Delete docker-compose.yml from Remote Server') {
+            steps {
+                script {
+                    withCredentials([
+                        sshUserPrivateKey(credentialsId: BASTION_CREDENTIALS, keyFileVariable: 'BASTION_KEY'),
+                        sshUserPrivateKey(credentialsId: REMOTE_CREDENTIALS, keyFileVariable: 'REMOTE_KEY')
+                        sh "chmod 400 $BASTION_KEY && chmod 400 $REMOTE_KEY"
+                        sh "export SSH_PROXY_COMMAND='ssh -i $BASTION_KEY -o StrictHostKeyChecking=no -W %h:%p $BASTION_USER@$BASTION_HOST'"
+                        sh "ssh -i $REMOTE_KEY -o ProxyCommand='$SSH_PROXY_COMMAND' -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST \
+                            'rm ~/docker-compose-s4p.staging.yml'"
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo "Docker image ${DOCKER_IMAGE_NAME}:${TAG} successfully built and pushed to local registry (${LOCAL_REGISTRY_HOST})"
+            echo "Stack ${STACK_NAME} deployed successfully on ${REMOTE_HOST}"
+        }
+        failure {
+            echo "Failed to build Docker image, push to local registry, or deploy stack"
+        }
+    }
+}

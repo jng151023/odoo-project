@@ -11,3 +11,5 @@ odoo.devdb.conf
 __pycache__
 
 .vscode
+
+odoo.prod.conf
