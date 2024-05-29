@@ -13,7 +13,7 @@ services:
       - ./environment/data/odoo/config:/etc/odoo
       # - ./environment/data/odoo/data:/var/lib/odoo
       - ./addons:/var/lib/odoo/addons/17.0
-    command: odoo -i base,l10n_vn -d odoo-local --dev=all
+    command: odoo -i base,l10n_vn -d odoo-local --dev=all --without-demo=all
     depends_on:
       - odoo-database
     networks:
