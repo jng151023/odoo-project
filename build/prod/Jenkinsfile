@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: "odoo.prod.conf", variable: 'CONFIG_FILE')]) {
-                        sh 'cp $CONFIG_FILE $WORKSPACE/build/prod/odoo.prod.conf'
+                        sh 'cp $CONFIG_FILE $WORKSPACE/build/prod/conf/odoo.prod.conf'
                     }
                     echo "docker build -t ${LOCAL_REGISTRY_HOST}/${DOCKER_IMAGE_NAME}:${TAG} -f ${DOCKERFILE_PATH} ."
                     sh "cd $WORKSPACE && docker build -t ${LOCAL_REGISTRY_HOST}/${DOCKER_IMAGE_NAME}:${TAG} -f ${DOCKERFILE_PATH} ."
