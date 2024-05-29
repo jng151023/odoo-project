@@ -65,4 +65,5 @@
               parent="pharmacy_managment_jkc.menu_customers"
               action="res_partner_action_pharmacy_customer"/>
     
+
 </odoo>
