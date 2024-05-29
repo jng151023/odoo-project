@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="report.paperformat" id="paperformat_pharmacy_report">
+        <field name="name">paperformat.contract.report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_width">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_right">5</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="medicine_exp_report_action" model="ir.actions.report">
+        <field name="name">Medicine Expiry Report</field>
+        <field name="model">expiry.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy_managment_jkc.report_medicine_exp_template</field>
+        <field name="report_file">pharmacy_managment_jkc.report_medicine_exp_template</field>
+        <field name="paperformat_id" ref="paperformat_pharmacy_report"/>
+        <field name="binding_model_id" ref="model_expiry_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <template id="report_medicine_exp_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    .report-header {
+                    border-bottom: 2px solid black;
+                    }
+
+                    .report-header h4 {
+                    text-align: center;
+                    }
+
+                    .report-header h5 {
+                    text-align: center;
+                    }
+
+                    .table-bordered {
+                    border-collapse: collapse;
+                    width: 100%;
+                    }
+
+                    .table-bordered th, .table-bordered td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: center;
+                    }
+
+                    .table-bordered th {
+                    background-color: #f5f5f5;
+                    color: gray;
+                    }
+
+                    .table-bordered tbody tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                    }
+
+                    .footer {
+                    border-top: 1px solid black;
+                    }
+
+                    .footer ul.list-inline {
+                    margin-top: 10px;
+                    }
+
+                    .footer ul.list-inline li {
+                    display: inline-block;
+                    margin-right: 5px;
+                    }
+                </style>
+
+                <div class="page">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h4 class="text-center">
+                        <strong>Medicine Expiry Details</strong>
+                    </h4>
+                    <table class="table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Start Date</th>
+                                <th class="text-center">End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <span t-esc="form['start_date']"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="form['end_date']"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <table class="table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Medicine Name</th>
+                                <th class="text-center">Available Quantity</th>
+                                <th class="text-center">Expiry Date</th>
+                                <th class="text-center">Medicine Type</th>
+                                <th class="text-center">Category</th>
+                                <th class="text-center">Medicine company</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="pharm_list" t-as="pharm">
+                                <td>
+                                    <span t-esc="pharm['name']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="pharm['available_qty']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="pharm['expiry_date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="pharm['medicine_type_id']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="pharm['category_id']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="pharm['medicine_company_id']"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

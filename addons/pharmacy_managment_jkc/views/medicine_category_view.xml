@@ -1,0 +1,28 @@
+<!-- custom_medicine_category/views/medicine_category_view.xml -->
+
+<odoo>
+    <data>
+        <record id="view_medicine_category_form" model="ir.ui.view">
+            <field name="name">medicine.category.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <group>
+                    <field name="is_medicine"/>
+                </group>
+            </field>
+        </record>
+
+        <record id="action_medicine_category" model="ir.actions.act_window">
+            <field name="name">Medicine Categories</field>
+            <field name="res_model">product.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_medicine', '=', True)]</field>
+        </record>
+
+        <menuitem id="menu_medicine_category" name="Medicine Category" sequence="1"
+                  parent="pharmacy_managment_jkc.menu_configuration"
+                  action="pharmacy_managment_jkc.action_medicine_category"/>
+
+    </data>
+</odoo>

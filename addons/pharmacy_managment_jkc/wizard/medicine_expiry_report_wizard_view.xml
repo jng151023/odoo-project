@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <!--form view of the wizard-->
+        <record id="expiry_report_wizard_form" model="ir.ui.view">
+            <field name="name">expiry.report.wizard.form</field>
+            <field name="model">expiry.report.wizard</field>
+            <field name="arch" type="xml">
+
+                <form string="Medicine Expiry Report">
+
+                    <group colspan="4" col="4">
+                        <field name="start_date" required="1"/>
+                        <field name="end_date" required="1"/>
+                    </group>
+                    <footer>
+                        <!--                        <button string="Print as Excel" type="object" name="print_sales_analysis_report_xlsx"-->
+                        <!--                                class="oe_highlight"/>-->
+                        <button string="Print as PDF" type="object" name="print_medicine_exp_report_pdf"
+                                class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="print_cancel" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- action -->
+
+        <record id="expiry_report_wizard_action" model="ir.actions.act_window">
+            <field name="name">Medicine Expiry Report</field>
+            <field name="res_model">expiry.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="expiry_report_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

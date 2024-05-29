@@ -1,0 +1,50 @@
+<!-- custom_medicine_company/views/medicine_company_view.xml -->
+
+<odoo>
+    <data>
+
+        <record id="view_medicine_company_tree" model="ir.ui.view">
+            <field name="name">medicine.company.tree</field>
+            <field name="model">medicine.company</field>
+            <field name="arch" type="xml">
+                <tree string="Medicine Companies">
+                    <field name="name"/>
+                    <field name="supplier_id"/>
+                    <!--                    <field name="contact_person"/>-->
+                    <field name="phone"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_medicine_company_form" model="ir.ui.view">
+            <field name="name">medicine.company.form</field>
+            <field name="model">medicine.company</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name='supplier_id'/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="address" widget="text_area"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_medicine_company" model="ir.actions.act_window">
+            <field name="name">Manufacture Company</field>
+            <field name="res_model">medicine.company</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_medicine_company" name="Medicine Company" sequence="2"
+                  parent="pharmacy_managment_jkc.menu_configuration"
+                  action="pharmacy_managment_jkc.action_medicine_company"/>
+
+    </data>
+</odoo>
