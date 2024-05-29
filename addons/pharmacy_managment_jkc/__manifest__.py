@@ -33,6 +33,7 @@
         'views/pharmacy_medicine_view.xml',
         'views/pharmacy_purchase_order_view.xml',
         'views/customer_invoice_analysis_view.xml',
+        'views/pharmacy_inventory_view.xml',
         'report/medicine_expiry_report_view.xml',
 
     ],
