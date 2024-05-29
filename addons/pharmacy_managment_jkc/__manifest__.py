@@ -18,7 +18,7 @@
     'version': '17.0.1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['hr_contract', 'hr', 'stock', 'account', 'purchase', 'sale_management', 'mail'],
+    'depends': ['hr_contract', 'hr', 'stock', 'account', 'purchase', 'purchase_requisition', 'purchase_requisition_sale', 'sale_management', 'mail'],
     # 'product',
 
     # always loaded
