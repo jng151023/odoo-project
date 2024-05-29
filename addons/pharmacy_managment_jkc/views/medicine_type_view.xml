@@ -44,7 +44,7 @@
         </record>
 
 
-        <menuitem id="main_menu_pharmacy" sequence="1" name="Pharmacy"
+        <menuitem id="main_menu_pharmacy" sequence="1" name="Lao Cai Pharmacy"
                   web_icon="pharmacy_managment_jkc,static/src/img/pharmacy_logo.png"/>
         <menuitem id="menu_configuration" name="Configurations" groups="group_pharmacy_manager" sequence="6"
                   parent="main_menu_pharmacy"/>
