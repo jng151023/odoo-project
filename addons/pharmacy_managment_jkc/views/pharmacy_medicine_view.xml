@@ -97,5 +97,7 @@
               parent="pharmacy_managment_jkc.menu_medicines"
               action="sale.product_template_action"/>
     <!--              action="product.product_normal_action_sell"/>-->
-
+    <menuitem id="menu_medicine_pricelist" name="Pricelists" sequence="1"
+              parent="pharmacy_managment_jkc.menu_medicines"
+              action="product.product_pricelist_action2"/>
 </odoo>
