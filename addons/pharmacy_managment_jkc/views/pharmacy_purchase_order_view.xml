@@ -27,7 +27,7 @@
               action="account.res_partner_action_supplier"/>
     <menuitem id="account.menu_action_account_invoice_report_all" name="Vendors" sequence="4"
               parent="pharmacy_managment_jkc.menu_purchase"/>
-    <menuitem id="purchase.menu_procurement_requisition_blanket_order" name="Blanket Orders" sequence="5"
+    <menuitem id="menu_procurement_requisition_blanket_order" name="Blanket Orders" sequence="5"
               parent="pharmacy_managment_jkc.menu_purchase"
               action="purchase_requisition.action_purchase_requisition"/>
 
