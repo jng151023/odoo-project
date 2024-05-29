@@ -15,7 +15,11 @@
                 "-d",
                 "odoo-local",
                 "-i",
+<<<<<<< Updated upstream
                 "pharmacy_management",
+=======
+                "pharmacy_managment_jkc",
+>>>>>>> Stashed changes
                 "--stop-after-init"
             ]
         },
@@ -33,7 +37,11 @@
                 "-d",
                 "odoo-local",
                 "-u",
+<<<<<<< Updated upstream
                 "pharmacy_management",
+=======
+                "pharmacy_managment_jkc",
+>>>>>>> Stashed changes
                 "--stop-after-init"
             ]
         },
