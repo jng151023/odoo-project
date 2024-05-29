@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_inventory" name="Inventory" sequence="4"
+              parent="pharmacy_managment_jkc.main_menu_pharmacy"/>
+
+    <menuitem id="menu_inventory_orders" name="Overview" sequence="0"
+              parent="pharmacy_managment_jkc.menu_inventory"
+              action="stock.stock_picking_type_action"/>
+
+    <menuitem id="menu_inventory_location" name="Locations" sequence="1"
+              parent="pharmacy_managment_jkc.menu_inventory"
+              action="stock.dashboard_open_quants"/>
+
+    <menuitem id="menu_inventory_valuation" name="Inventory Valuation" sequence="2"
+              parent="pharmacy_managment_jkc.menu_inventory"
+              action="stock_account.stock_valuation_layer_action"/>
+
+    <menuitem id="menu_inventory_lot" name="Lots/Serial Numbers" sequence="3"
+              parent="pharmacy_managment_jkc.menu_inventory"
+              action="stock.action_production_lot_form"/>
+    
+    <menuitem id="menu_inventory_storage_location" name="Storage Locations" sequence="4"
+              parent="pharmacy_managment_jkc.menu_inventory"
+              action="stock.action_location_form"/>
+
+    <menuitem id="menu_inventory_putaway_rules" name="Putaway Rules" sequence="5"
+              parent="pharmacy_managment_jkc.menu_inventory"
+              action="stock.action_putaway_tree"/>
+</odoo>

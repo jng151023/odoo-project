@@ -46,7 +46,7 @@
 
         <menuitem id="main_menu_pharmacy" sequence="1" name="Pharmacy"
                   web_icon="pharmacy_managment_jkc,static/src/img/pharmacy_logo.png"/>
-        <menuitem id="menu_configuration" name="configurations" groups="group_pharmacy_manager" sequence="5"
+        <menuitem id="menu_configuration" name="Configurations" groups="group_pharmacy_manager" sequence="6"
                   parent="main_menu_pharmacy"/>
         <menuitem id="menu_medicine_type" name="Medicine Types" parent="pharmacy_managment_jkc.menu_configuration" sequence="0"
                   action="action_medicine_type"/>
