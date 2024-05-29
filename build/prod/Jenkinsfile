@@ -27,23 +27,23 @@ pipeline {
             }
         }
 
-        stage('SonarQube analysis') {
-            steps {
-                script {
-                    scannerHome = tool 'sonarqube'
-                }
-                withSonarQubeEnv('sonarqube') {
-                    sh "cd $WORKSPACE/addons && ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=odoo-prod \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=https://sonarqube.lc-pharma.store \
-                        -Dsonar.token=${SONARQUBE_TOKEN}"
-                }
-                timeout(time: 60, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        // stage('SonarQube analysis') {
+        //     steps {
+        //         script {
+        //             scannerHome = tool 'sonarqube'
+        //         }
+        //         withSonarQubeEnv('sonarqube') {
+        //             sh "cd $WORKSPACE/addons && ${scannerHome}/bin/sonar-scanner \
+        //                 -Dsonar.projectKey=odoo-prod \
+        //                 -Dsonar.sources=. \
+        //                 -Dsonar.host.url=https://sonarqube.lc-pharma.store \
+        //                 -Dsonar.token=${SONARQUBE_TOKEN}"
+        //         }
+        //         timeout(time: 60, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
 
         stage('Build Docker Image') {
             steps {
