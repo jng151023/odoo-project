@@ -9,3 +9,5 @@ odoo.devdb.env
 odoo.devdb.conf
 
 __pycache__
+
+.vscode
