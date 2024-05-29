@@ -46,5 +46,11 @@
                   parent="pharmacy_managment_jkc.menu_configuration"
                   action="pharmacy_managment_jkc.action_medicine_company"/>
 
+        <menuitem id="menu_medicine_unit_of_measure" name="Units of Measure" sequence="3"
+                  parent="pharmacy_managment_jkc.menu_configuration"
+                  action="uom.product_uom_form_action"/>
+        <menuitem id="menu_medicine_unit_of_measure_category" name="Units of Measure Categories" sequence="4"
+                  parent="pharmacy_managment_jkc.menu_configuration"
+                  action="uom.product_uom_categ_form_action"/>
     </data>
 </odoo>
