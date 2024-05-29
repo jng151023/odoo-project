@@ -75,6 +75,7 @@ pipeline {
                     withCredentials([
                         sshUserPrivateKey(credentialsId: BASTION_CREDENTIALS, keyFileVariable: 'BASTION_KEY'),
                         sshUserPrivateKey(credentialsId: REMOTE_CREDENTIALS, keyFileVariable: 'REMOTE_KEY')
+                    ] {
                         sh "chmod 400 $BASTION_KEY && chmod 400 $REMOTE_KEY"
                         sh "export SSH_PROXY_COMMAND='ssh -i $BASTION_KEY -o StrictHostKeyChecking=no -W %h:%p $BASTION_USER@$BASTION_HOST'"
                         sh "scp -i $REMOTE_KEY -o ProxyCommand='$SSH_PROXY_COMMAND' -o StrictHostKeyChecking=no \
@@ -90,6 +91,7 @@ pipeline {
                     withCredentials([
                         sshUserPrivateKey(credentialsId: BASTION_CREDENTIALS, keyFileVariable: 'BASTION_KEY'),
                         sshUserPrivateKey(credentialsId: REMOTE_CREDENTIALS, keyFileVariable: 'REMOTE_KEY')
+                    ] {
                         sh "chmod 400 $BASTION_KEY && chmod 400 $REMOTE_KEY"
                         sh "export SSH_PROXY_COMMAND='ssh -i $BASTION_KEY -o StrictHostKeyChecking=no -W %h:%p $BASTION_USER@$BASTION_HOST'"
                         sh "ssh -i $REMOTE_KEY -o ProxyCommand='$SSH_PROXY_COMMAND' -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST \
@@ -106,6 +108,7 @@ pipeline {
                     withCredentials([
                         sshUserPrivateKey(credentialsId: BASTION_CREDENTIALS, keyFileVariable: 'BASTION_KEY'),
                         sshUserPrivateKey(credentialsId: REMOTE_CREDENTIALS, keyFileVariable: 'REMOTE_KEY')
+                    ] {
                         sh "chmod 400 $BASTION_KEY && chmod 400 $REMOTE_KEY"
                         sh "export SSH_PROXY_COMMAND='ssh -i $BASTION_KEY -o StrictHostKeyChecking=no -W %h:%p $BASTION_USER@$BASTION_HOST'"
                         sh "ssh -i $REMOTE_KEY -o ProxyCommand='$SSH_PROXY_COMMAND' -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST \
