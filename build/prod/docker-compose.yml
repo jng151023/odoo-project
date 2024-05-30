@@ -36,7 +36,7 @@ services:
         - "traefik.http.services.odoo.loadbalancer.server.port=8069"
         # Set traefik network to fix gateway timeout
         - "traefik.docker.network=traefik_public"
-    command: odoo -i base,l10n_vn -d odoo-prod-3 --without-demo=all
+    # command: odoo -i base,l10n_vn -d odoo-prod-3 --without-demo=all
     networks:
       - odoo-network
       - traefik_public
