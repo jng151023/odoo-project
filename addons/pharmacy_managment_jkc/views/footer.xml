@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+
+        <template id="custom_footer" inherit_id="website.layout" name="Custom Footer">
+            <xpath expr="//footer" position="replace">
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link
+                        href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500&amp;display=swap"
+                        rel="stylesheet"/>
+                <footer>
+                    <!--                    <div class="footer-line"></div>-->
+                    <div class="footer-wrapper">
+                        <div class="footer-columns">
+                            <section>
+                                <ul>
+                                    <li>
+                                        <span>400 University Drive suit 200 coral gabless,FL33134USA</span>
+                                    </li>
+                                </ul>
+                            </section>
+
+                            <section>
+                                <ul>
+                                    <li>
+                                        <span>Links</span>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="Home">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="/shop" title="Shop">Shop</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="About">About</a>
+                                    </li>
+                                    <li>
+                                        <a href="/contactus" title="Contact">Contact</a>
+                                    </li>
+
+                                </ul>
+                            </section>
+                            <section>
+                                <ul>
+                                    <li>
+                                        <span>Help</span>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="Payment option">Payment option</a>
+                                    </li>
+                                    <li>
+                                        <a href="#/shop" title="Returns">Returns</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="Privacy Policies">Privacy Policies</a>
+                                    </li>
+
+                                </ul>
+                            </section>
+                            <section>
+                                <ul>
+                                    <li>
+                                        <span>Newsletter</span>
+                                    </li>
+                                    <div class="footer-subscribe">
+                                        <input type="email" spellcheck="false" placeholder="Enter Your Email Address"/>
+                                        <button>
+                                            SUBSCRIBE
+                                        </button>
+                                    </div>
+                                </ul>
+                            </section>
+                        </div>
+                        <small style="font-family: 'Helvetica Neue'">2022, Meubel Hpuse, All rights reserved
+                        </small>
+
+                    </div>
+                </footer>
+            </xpath>
+        </template>
+
+
+    </data>
+</odoo>
